@@ -63,13 +63,13 @@ object MediaProbe {
                     } catch (_: Exception) {
                         "und"
                     },
-                    width = f.getInteger(MediaFormat.KEY_WIDTH, 0),
-                    height = f.getInteger(MediaFormat.KEY_HEIGHT, 0),
-                    sampleRate = f.getInteger(MediaFormat.KEY_SAMPLE_RATE, 0),
-                    channelCount = f.getInteger(MediaFormat.KEY_CHANNEL_COUNT, 0),
-                    bitrate = f.getInteger(MediaFormat.KEY_BIT_RATE, 0),
+                    width = f.getIntOr(MediaFormat.KEY_WIDTH, 0),
+                    height = f.getIntOr(MediaFormat.KEY_HEIGHT, 0),
+                    sampleRate = f.getIntOr(MediaFormat.KEY_SAMPLE_RATE, 0),
+                    channelCount = f.getIntOr(MediaFormat.KEY_CHANNEL_COUNT, 0),
+                    bitrate = f.getIntOr(MediaFormat.KEY_BIT_RATE, 0),
                     durationUs = d,
-                    rotation = f.getInteger("rotation-degrees", 0)
+                    rotation = f.getIntOr("rotation-degrees", 0)
                 )
             }
             // Fallback durata dai metadati se le tracce non la espongono.
@@ -90,7 +90,7 @@ object MediaProbe {
         }
     }
 
-    private fun MediaFormat.getInteger(key: String, def: Int): Int {
+    private fun MediaFormat.getIntOr(key: String, def: Int): Int {
         return try {
             if (containsKey(key)) getInteger(key) else def
         } catch (_: Exception) {
