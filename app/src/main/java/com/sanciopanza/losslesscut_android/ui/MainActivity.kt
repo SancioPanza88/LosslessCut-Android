@@ -133,7 +133,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btn("Apri file video/audio").setOnClickListener {
-            openOne.launch("*/*")
+            openOne.launch(arrayOf("*/*"))
         }
 
         playerView = PlayerView(this).apply {
@@ -222,7 +222,7 @@ class MainActivity : AppCompatActivity() {
         }
         row("Allega esterno", "Impostazioni") { i ->
             when (i) {
-                0 -> openExternalSub.launch("*/*")
+                0 -> openExternalSub.launch(arrayOf("*/*"))
                 1 -> settingsDialog()
             }
         }
@@ -840,9 +840,9 @@ class MainActivity : AppCompatActivity() {
                 "Esporta CSV", "Esporta CUE", "Esporta YouTube", "Esporta JSON"
             )) { _, which ->
                 when (which) {
-                    0 -> { pendingImportFormat = "csv"; openText.launch("text/*") }
-                    1 -> { pendingImportFormat = "yt"; openText.launch("text/*") }
-                    2 -> openProject.launch("application/json")
+                    0 -> { pendingImportFormat = "csv"; openText.launch(arrayOf("text/*")) }
+                    1 -> { pendingImportFormat = "yt"; openText.launch(arrayOf("text/*")) }
+                    2 -> openProject.launch(arrayOf("application/json"))
                     3 -> exportText("csv", ChapterIO.toCsv(segments))
                     4 -> exportText("cue", ChapterIO.toCue(fileName, segments))
                     5 -> exportText("yt.txt", ChapterIO.toYouTube(segments))
@@ -893,7 +893,7 @@ class MainActivity : AppCompatActivity() {
                     } catch (t: Throwable) {
                         appendLog("Salvataggio fallito: ${t.message}\n")
                     }
-                } else openProject.launch("application/json")
+                } else openProject.launch(arrayOf("application/json"))
             }
             .setNegativeButton("Annulla", null)
             .show()
