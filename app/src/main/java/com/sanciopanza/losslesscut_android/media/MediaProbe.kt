@@ -91,6 +91,10 @@ object MediaProbe {
     }
 
     private fun MediaFormat.getInteger(key: String, def: Int): Int {
-        return try { getInteger(key) } catch (_: Exception) { def }
+        return try {
+            if (containsKey(key)) getInteger(key) else def
+        } catch (_: Exception) {
+            def
+        }
     }
 }
